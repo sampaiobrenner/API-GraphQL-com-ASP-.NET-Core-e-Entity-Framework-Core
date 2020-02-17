@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  apiprodutos:
+    image: ${DOCKER_REGISTRY-}apiprodutos
+    build:
+      context: .
+      dockerfile: APIProdutos/Dockerfile

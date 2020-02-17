@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  apiprodutos:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "51556:80"
