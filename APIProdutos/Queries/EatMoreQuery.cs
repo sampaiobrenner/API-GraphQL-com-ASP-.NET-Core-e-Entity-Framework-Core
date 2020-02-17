@@ -14,11 +14,21 @@ namespace APIProdutos.Queries
         {
             Field<ListGraphType<ProdutoType>>(
                 "produtos",
-                resolve: context =>
+                arguments: new QueryArguments(new QueryArgument[]
                 {
-                    var produtos = db
-                        .Produtos;
-                    return produtos;
+                    new QueryArgument<IdGraphType>{Name="id"},
+                    new QueryArgument<StringGraphType>{Name="nome"}
+                }),
+                resolve: contexto =>
+                {
+                    var filtroNome = contexto.GetArgument<string>("nome");
+
+                    var query = db.Produtos.AsQueryable();
+
+                    if (!string.IsNullOrEmpty(filtroNome))
+                        query = query.Where(x => x.Nome == filtroNome);
+
+                    return query.ToList();
                 });
         }
     }
